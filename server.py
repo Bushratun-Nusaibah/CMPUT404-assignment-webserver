@@ -119,8 +119,20 @@ class MyWebServer(socketserver.BaseRequestHandler):
                 self.request.sendall(bytearray(self.STATUS_200%(path_req.split(".")[1])+file.read(), self.ENCODE))
 
         else:
-            self.request.sendall(bytearray(self.STATUS_301, self.ENCODE)) # accepts the file path entered but shows 301 error
+            
+            response = self.send_response(location=f"{path_req}/")
+            self.request.sendall(bytearray(response, self.ENCODE)) # accepts the file path entered but shows 301 error
 
+    def send_response(self, location):
+        # builds a response for 301 redirection 
+        # Location: location path for 301 redirection
+        # returns a reponse for 301 redirection as a string 
+            
+        response = self.STATUS_301
+
+        response += f"Location: {location}\r\n"
+        
+        return response
 
         
 if __name__ == "__main__":
