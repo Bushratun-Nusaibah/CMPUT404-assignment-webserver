@@ -62,7 +62,7 @@ class MyWebServer(socketserver.BaseRequestHandler):
                 if os.path.isdir("www" + path_requested):
 
                     self.check_path_request(path_requested)
-
+                
                 # the path entered is not found and is invalid
                 elif not os.path.isfile("www" + path_requested):
                     # File not found error message or NOT FOUND error
